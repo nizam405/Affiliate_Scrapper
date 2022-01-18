@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Blog posts{% endblock title %}
+{% block content %}
+
+<div class="container my-5">
+    
+    <div class='mb-2'>
+        <a href="{% url 'project:dashboard' %}" class="btn btn-primary">&lt; Dashboard</a>
+        <a href="{% url 'post:add-post' project_id %}" class="btn btn-primary">Add Blog Post</a>
+    </div>
+    <h4>{{project_name}}</h4>
+    <div class='my-2'>Total blog posts: {{object_list.count}}</div>
+    <table class='table'>
+        {% for post in object_list %}
+        <tr>
+            <td>
+                <a href="{% url 'post:post-detail' project_id post.pk %}">
+                    {{ post.title }}<br>
+                    {{ post.url }}
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'post:delete-post' project_id post.pk %}" class="text-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h4>Report</h4>
+    <div>
+        {% if content_len %}
+        <p><b>Suggested Content Length:</b> {{content_len}} words</p>
+        {% endif %}
+
+        <!-- Headings -->
+        <!-- H1 -->
+        {% if object_list %}
+        <h4>Subheadings</h4>
+        <table class="table table-sm table-bordered">
+            <thead class='thead-light'>
+                <tr>
+                <th>Tag</th>
+                    {% for post in object_list %}
+                    <th>{{post.url}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for key,value in sub_headings.items %}
+                    <tr>
+                        <td>{{key}}</td>
+                        {% for list in value %}
+                        <td><ul>{% for h in list %}<li>{{h.heading}}</li>{% endfor %}</ul></td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <h1 class='display-3 text-center border rounded p-5 m-5'>No site scrapped yet!</h1>
+        {% endif %}
+    </div>
+
+    {% if chart %}
+    <div>
+        <img src="data:image/png;base64, {{chart|safe}}" class="img-fluid"/>
+    </div>
+    {% endif %}
+    
+</div>
+
+{% endblock content %}

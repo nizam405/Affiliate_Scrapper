@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Project Details{% endblock title %}
+
+{% block content %}
+<div class='container mt-5'>
+{% include 'project/header.html' %}
+<h4>{{ object.name }}</h4>
+
+<a href="{% url 'post:post-list' project_id=object.pk %}" class="btn btn-success">View URLs &gt;</a>
+
+
+</div>
+{% endblock content %}

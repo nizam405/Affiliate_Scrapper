@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}New Project || SEO Tool{% endblock title %}
+{% block content %}
+{% load bootstrap4 %}
+
+<div class='container mt-5'>
+    <form method="post" class='form'>
+        {% csrf_token %}
+        {% bootstrap_form form form_layout='inline' %}
+        {% bootstrap_button content='Save' button_type='submit' %}
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Dashboard || SEO Tool{% endblock title %}
+{% block content %}
+
+<div class="container mt-5">
+    
+    <div><a href="{% url 'project:create-project' %}" class="btn btn-primary">New Project</a></div>
+    <div class='my-2'>Total projects: {{project_list.count}}</div>
+    <table class='table'>
+        <tr>
+            <td>All Projects</td>
+            <td width='200px'>Actions</td>
+        </tr>
+        {% for project in object_list %}
+        <tr>
+            <td><a href="{% url 'project:project-detail' project.pk %}">{{ project.name }}</a></td>
+            <td>
+                <a href="{% url 'project:update-project' project.pk %}">Rename</a> |
+                <a href="{% url 'project:delete-project' project.pk %}" class="text-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock content %}

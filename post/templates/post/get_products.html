@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Get Products{% endblock title %}
+{% block content %}
+
+<div class='container my-5'>
+    <div class='mb-3'>
+        <button id='select-similar' class='btn btn-outline-primary'>Select Similar</button>
+        <button id='select-all' class='btn btn-outline-primary'>Select All</button>
+        <button id='deselect-all' class='btn btn-outline-primary'>Deselect All</button>
+    </div>
+    <form method='post'>
+        {% csrf_token %}
+        {% for tag in tags %}
+        <div class="form-check">
+            <input type="checkbox" value="{{tag.content}}" name="products" 
+            class="form-check-input" classlist={{tag.class|default:"None"}} 
+            tagname={{tag.name}}>
+            <label class="form-check-label">{{tag.content}}</label>
+        </div>
+        {% endfor %}
+        <input type='submit' value='Add to Products' 
+        class='btn btn-outline-primary mt-2'>
+    </form>
+</div>
+
+<script>
+    /* Auto Select
+    products = $("input[classlist*='product']");
+    if(products.length>0){
+        products.each(function(){
+            $(this).prop('checked',true);
+        });
+    } else {
+        $('input[tagname={{max}}]').each(function(){
+            $(this).prop('checked',true);
+        });
+    }*/
+    // Select Similar
+    $('#select-similar').click(function(){
+        var selected = [];
+        $('input:checked').each(function(){
+            var tagname = $(this).attr('tagname')
+            if(tagname && selected.indexOf(tagname)==-1){
+                if($(this).attr('classname') != 'None'){
+                    var classname = $(this).attr('classlist')
+                    tag = {'name':tagname, 'class':classname}
+                } else {
+                    tag = {'name':tagname}
+                }
+                selected.push(tag);
+            }
+        });
+        selected.forEach(function(tag){
+            $('input[tagname='+tag['name']+'][classlist='+tag['class']+']').each(function(){
+                $(this).prop('checked',true);
+            });
+        });
+    });
+    // Select All
+    $('#select-all').click(function(){
+        $('input[type=checkbox]').each(function(){
+            $(this).prop('checked',true);
+        });
+    });
+    // Deselect All
+    $('#deselect-all').click(function(){
+        $('input:checked').each(function(){
+            $(this).prop('checked',false);
+        });
+    });
+</script>
+
+{% endblock content %}

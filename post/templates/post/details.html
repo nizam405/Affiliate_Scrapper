@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% block title %}Project Details{% endblock title %}
+
+{% block content %}
+<div class='container mt-5'>
+{% include 'post/header.html' %}
+
+<h4>Title: {{ object.title }}</h4>
+<p>URL: <a href="{{object.url}}" target="_blank">{{object.url}}</a></p>
+<p>Last Updated: <i class='text-info'>{{ object.last_updated }}</i></p>
+
+<!-- Keyword Density -->
+<div class="input-group mb-3">
+    <div class='input-group-prepend'>
+        <span class='input-group-text'>Check keyword density</span>
+    </div>
+    <input name="keyword-input" type="text" class='form-control' id='keyword-input'
+    placeholder="Enter keyword" onkeyup="keywordCount()">
+    <div class="input-group-append">
+       <span id="output" class='input-group-text'>0 entries</span>
+    </div>
+</div>
+
+<!-- Contents -->
+<p><b>Contents:</b> {{object.contents|wordcount}} words
+    <button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('review-content'))">
+    Show &or;</button>
+</p>
+<p style="display:none" id='review-content'>{{ object.contents }}</p>
+
+<!-- Meta Description -->
+<p><b>Meta Description:</b> {{ object.meta|wordcount }} words
+    <button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('meta'))">
+    Show &or;</button>
+</p>
+<p style="display:none" id='meta'>{{ object.meta }}</p>
+
+<!-- Internal Links -->
+<p><b>Internal Links:</b> {{ internal_links.count }} entries
+    <button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('internal-links'))">
+    Show &or;</button>
+</p>
+<ol style="display:none" id='internal-links'>
+{% for link in internal_links %}
+    <li>{{link}}</li>
+{% endfor %}
+</ol>
+
+<!-- Outbound Links -->
+<p><b>Outbound Links:</b> {{ outbound_links.count }} entries
+    <button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('outbound-links'))">
+    Show &or;</button>
+</p>
+<ol style="display:none" id='outbound-links'>
+{% for link in outbound_links %}
+    <li>{{link}}</li>
+{% endfor %}
+</ol>
+
+<!-- Image Alternative Texts -->
+<p><b>Image Alternative Texts:</b> {{ image_alt_texts.count }} entries
+    <button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('image-alt-texts'))">
+    Show &or;</button>
+    <input type="checkbox" id="show-image" class="ml-2"> Show with image
+</p>
+<table class='table' style="display:none" id='image-alt-texts'>
+{% for alt_text in image_alt_texts %}
+    <tr>
+        <td>{{alt_text.text}}</td>
+        <td class="alt-text" style="display:none"><img src="{{alt_text.src}}" width="200" /></td>
+    </tr>
+{% endfor %}
+</table>
+
+<!-- Sub Headings -->
+<p><b>Sub Headings:</b> {{ sub_headings.count }} entries
+    <!-- h1 -->
+    <p><b>h1:</b> {{ h1.count }} entries
+        <button class="btn btn-sm btn-outline-info ml-2" 
+            onclick="toggleContent(this,document.getElementById('h1'))">
+        Show &or;</button>
+    </p>
+    <ol style="display:none" id='h1'>
+    {% for heading in h1 %}
+        <li>{{heading}}</li>
+    {% endfor %}
+    </ol>
+<!-- h2 -->
+<p><b>h2:</b> {{ h2.count }} entries
+    <button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('h2'))">
+    Show &or;</button>
+</p>
+<ol style="display:none" id='h2'>
+{% for heading in h2 %}
+    <li>{{heading}}</li>
+{% endfor %}
+</ol>
+<!-- h3 -->
+<p><b>h3:</b> {{ h3.count }} entries
+    <button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('h3'))">
+    Show &or;</button>
+</p>
+<ol style="display:none" id='h3'>
+{% for heading in h3 %}
+    <li>{{heading}}</li>
+{% endfor %}
+</ol>
+<!-- h4 -->
+<p><b>h4:</b> {{ h4.count }} entries
+    <button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('h4'))">
+    Show &or;</button>
+</p>
+<ol style="display:none" id='h4'>
+{% for heading in h4 %}
+    <li>{{heading}}</li>
+{% endfor %}
+</ol>
+
+{% if products %}
+    <p><b>Products</b> {{products.count}} entries<button class="btn btn-sm btn-outline-info ml-2" 
+        onclick="toggleContent(this,document.getElementById('products'))">
+        Show &or;</button>
+    </p>
+    <ol style="display:none" id='products'>
+    {% for product in products %}
+        <li>{{product}}</li>
+    {% endfor %}
+    </ol>
+{% else %}
+<a href="{% url 'post:get-products' object.project.pk object.pk %}">Get products</a>
+{% endif %}
+
+</div>
+<script>
+    function toggleContent(btn,content){
+        if(content.style.display == "none"){
+            content.style.display = "block";
+            btn.innerHTML = "Hide &and;";
+        } else {
+            content.style.display = "none";
+            btn.innerHTML = "Show &or;";
+        }
+    }
+
+    function keywordCount(){
+        var str = document.getElementById('review-content').innerHTML;
+        var keyword = document.getElementById('keyword-input').value;
+        var output = document.getElementById('output');
+        var re = new RegExp(keyword,"gi");
+        if(keyword==""){
+            count = 0
+        } else {
+            count = str.match(re).length;
+        }
+        output.innerHTML = count + " entries"
+    }
+
+    $("#show-image").change(function(){
+        if($("td.alt-text").css("display") == "none"){
+            $("td.alt-text").css("display","");
+        } else {
+            $("td.alt-text").css("display","none");
+        }
+    });
+</script>
+{% endblock content %}

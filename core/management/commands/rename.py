@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # 
-        current_project_name = 'django_project_boilerplate'
+        current_project_name = 'Affiliate_Scrapper'
         new_project_name = kwargs['new_project_name']
         # 
         files_to_rename = [

@@ -1,5 +1,5 @@
 """
-WSGI config for seo_tools project.
+WSGI config for Affiliate_Scrapper project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'seo_tools.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Affiliate_Scrapper.settings')
 
 application = get_wsgi_application()

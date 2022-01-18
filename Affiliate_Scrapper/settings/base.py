@@ -31,8 +31,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'seo_tools.urls'
-WSGI_APPLICATION = 'seo_tools.wsgi.application'
+ROOT_URLCONF = 'Affiliate_Scrapper.urls'
+WSGI_APPLICATION = 'Affiliate_Scrapper.wsgi.application'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

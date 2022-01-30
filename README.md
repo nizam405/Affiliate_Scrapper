@@ -1,45 +1,42 @@
 # Affiliate_Scrapper
-Environment Setup
-Install python 3
-Install pip (For Mac)
-Download pip by running the following command:
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-Install the downloaded package by running:
-python3 get-pip.py
-Install virtualenv 
- >> python3 -m pip install virtualenv
-Create a folder with your project name and run the command (Use windows command prompt)
->> virtualenv venv
-Extract project zip file to project folder
-Enable project's virtual env
->> source venv/bin/activate
-Install requirements
->> python3 -m pip install -r requirements.txt
-Create database
->> python3 manage.py makemigrations
->> python3 manage.py migrate
-Create a superuser
->> python manage.py createsuperuser
-[Enter name, email(optional) and password as you wish. this will need for admin panel]
 
-Change Project Name
-Activate env
->> source venv/bin/activate
-Run command
-		>> python3 manage.py rename [new_name]
+<h4>Environment Setup</h4>
+<ol>
+	<li>Install python 3</li>
+	<li>Install pip (For Mac)</li>
+		Download pip by running the following command:<br/>
+		>> curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+	<li>Install the downloaded package by running:<br/>
+	>> python3 get-pip.py</li>
+	<li>Install virtualenv <br/>
+ 	>> python3 -m pip install virtualenv</li>
+	<li>Create a folder with your project name and run the command (Use windows command prompt)<br/>
+	>> virtualenv venv</li>
+	<li>Extract project zip file to project folder</li>
+	<li>Enable project's virtual env<br/>
+	>> source venv/bin/activate</li>
+	<li>Install requirements<br/>
+	>> python3 -m pip install -r requirements.txt</li>
+	<li>Create database<br/>
+	>> python3 manage.py makemigrations<br/>
+	>> python3 manage.py migrate</li>
+	<li>Create a superuser<br/>
+	>> python manage.py createsuperuser<br/>
+	[Enter name, email(optional) and password as you wish. this will need for admin panel]</li>
+</ol>
 
-Running application
-Activate env
->> source venv/bin/activate
-Run the development server
->> python manage.py runserver
-Copy the ip-address from command line (example: http://127.0.0.1:8000/) and paste on your browser
+<h4>Change Project Name</h4>
+<ol>
+	<li>Activate env<br/>
+	>> source venv/bin/activate<br/>
+	>> python3 manage.py rename [new_name]</li>
+</ol>
 
-#########
-# Programming language used to make this project:
-Python - for scraping (with Django framework - for UI)
-HTML - for UI
-Bootstrap - for UI
-Javascript - for UI
-# Database - sqlite 3
-# Scrapper module located on [project_name]/post/scrapper.py
+<h4>Running application</h4>
+<ol>
+	<li>Activate env<br/>
+	>> source venv/bin/activate</li>
+	<li>Run the development server<br/>
+	>> python manage.py runserver</li>
+	<li>Copy the ip-address from command line (example: http://127.0.0.1:8000/) and paste on your browser</li>
+</ol>
